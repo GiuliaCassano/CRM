@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ContactsForm = () => {
+const FormContacts = () => {
   const [nameValue, setNameValue] = useState("");
   const [checkInputName, setCheckInputName] = useState(false);
   const [surnameValue, setSurnameValue] = useState("");
@@ -330,4 +330,4 @@ const ContactsForm = () => {
     </section>
   );
 };
-export { ContactsForm };
+export { FormContacts };

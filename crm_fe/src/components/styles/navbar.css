@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+}
+
+main {
+    margin: 16px;
+}
+
+.navbar {
+    background: #3a86ff;
+    color: white;
+    font-family: Helvetica;
+    font-weight: 1000;
+}
+
+.navbar__item {
+    padding: 16px 16px;
+    cursor: pointer;
+    vertical-align:text-bottom;
+}

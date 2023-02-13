@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const ActivitiesForm = () => {
+const FormActivities = () => {
 
     const [datetime, setDatetime] = useState('');
     const [managerValue, setManagerValue] = useState("");
@@ -87,4 +87,4 @@ const ActivitiesForm = () => {
   );
   
 };
-export {ActivitiesForm};
+export {FormActivities};

@@ -1,29 +1,32 @@
-//import { Routes, Route } from "react-router-dom"
-import { ActivitiesForm } from "./components/ActivitiesForm"
-import { ContactsForm } from "./components/ContactsForm"
-// import { Home } from "./components/Home"
-import { LoginUser } from "./components/LoginUser"
+import { Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import { FormActivities } from "./components/FormActivities";
+import { FormContacts } from "./components/FormContacts";
+
+
 
 function App() {
-
   return (
-    <div>
-       <ContactsForm></ContactsForm> 
+    <div className="app">
+      <Navbar/>
+      {/* CREO LE MIE ROTTE */}
+      <Routes>
+        <Route path="/loginpage" element={<LoginPage />}></Route> 
+        <Route path="/home" element={<HomePage/>} ></Route> 
+        <Route path="/formactivities" element={<FormActivities/>}></Route>
+        <Route path="/formcontacts" element={<FormContacts/>}></Route>
 
+        <Route className="not-found" path="*" element={<h1>Page not found</h1>}></Route>
+      </Routes>
+      
+       
 
-
-      <ActivitiesForm></ActivitiesForm>
-       <LoginUser></LoginUser> 
-
-
-
-{/*
-    <Routes>
-       <Route path = '/' element = {<Home/>} ></Route>  Home è l'elemento che viene renderizzato 
-    </Routes>
-    */}
+    
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
