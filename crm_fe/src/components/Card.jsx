@@ -7,7 +7,7 @@ const Card = () => {
     return (
         <div>
            <CardHeader></CardHeader>
-           <div class="d-flex justify-content-around mt-5">
+           <div className="d-flex justify-content-around mt-5">
            <CardActivities></CardActivities>
            <CardContact></CardContact>
             </div>
