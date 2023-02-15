@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ListContact } from "./ListContact";
 
 const FormContacts = () => {
   const [nameValue, setNameValue] = useState("");
@@ -10,7 +11,45 @@ const FormContacts = () => {
   const [checkInputEmail, setCheckInputEmail] = useState(false);
   const [phoneValue, setPhoneValue] = useState("");
   const [checkInputPhone, setCheckInputPhone] = useState(false);
+  const [error, setError] = useState(null);
+  const [content, setContent] = useState(null);
 
+
+  //*** 2 ***
+  const fetchGetAllContacts = async() => {
+    console.log("Fetch");
+
+    try {
+      const response = await fetch("http://localhost:8080/contact/all");
+      console.log(response);
+      if (!response.ok){
+        throw new Error("Something went wrong!");
+      };
+
+      const data = await response.json();
+      console.log(data);
+
+      const dataMapped = await data.map((elem, index) =>{
+        return{
+          key: index,
+          firstName : elem.firstName,
+          lastName : elem.lastName,
+          country : elem.country,
+          email : elem.email,
+          phoneNumber : elem.phoneNumber,
+          activities : elem.activities
+        }
+      })
+      console.log(dataMapped);
+
+     setContent(dataMapped);
+     console.log(content);
+
+    } catch (error) {
+      setError(error)
+      console.log(error);
+    }
+  }
 
   //NAME
   const nameChangeHandler = (event) => {
@@ -49,13 +88,25 @@ const FormContacts = () => {
     event.preventDefault();
   };
 
+  // ***1*** In react le [] dentro l'useEffect stanno a significare che la funziona avviene al caricamento della pagina
+  useEffect(() =>{
+    fetchGetAllContacts();
+  },
+  []);
+
+  let final = "";
+
+  if (content != null){
+    final = <ListContact propsContent= {content}/>
+    console.log("Funziona fetch")
+  }
 
   return (
     <section className="container">
-      <div className="row col-4">
+      <div className="row">
         <form
           onSubmit={submitHandler}
-          className="d-flex flex-column m-2 p-3 border border-dark rounded"
+          className="col-4 d-flex flex-column m-2 p-3 border border-dark rounded"
         >
           <label htmlFor="name">First name</label>
           <input
@@ -326,6 +377,9 @@ const FormContacts = () => {
           <button className="btn btn-success mt-4">Add</button>
           <button className="btn btn-danger mt-4">Delete</button>
         </form>
+        <div className="col-7">
+        {final}
+        </div>
       </div>
     </section>
   );

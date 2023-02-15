@@ -1,12 +1,13 @@
 // *** 8 ***
 const ListItemActivity = ({propsContent}) => {
     return (
-        <li>
-            <div>Activity Type : {propsContent.activityType}</div>
-            <div>Date and Time : {propsContent.dateTime}</div>
-            <div>Description : {propsContent.description}</div>
-            <div>Manager : {propsContent.manager}</div>
-        </li>
+        <tr>
+        <td>{propsContent.activityType}</td>
+        <td>{propsContent.dateTime}</td>
+        <td>{propsContent.description}</td>
+        <td>{propsContent.manager}</td>
+      </tr>
+       
     )
 }
 export {ListItemActivity}

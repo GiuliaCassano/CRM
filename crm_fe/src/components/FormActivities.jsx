@@ -8,6 +8,7 @@ const FormActivities = () => {
   const [activityValue, setActivityValue] = useState("");
   const [checkInputActivity, setCheckInputActivity] = useState(false);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [content, setContent] = useState(null);
 
   //*** 2 ***
@@ -15,6 +16,7 @@ const FormActivities = () => {
     console.log("Fetch");
 
     try {
+      setIsLoading(true);
       const response = await fetch("http://localhost:8080/activity/all"); //la response è di tipo promise
       console.log(response);
       if (!response.ok) {
@@ -43,6 +45,7 @@ const FormActivities = () => {
       setError(error)
       console.log(error);
     }
+    setIsLoading(false);
   }
 
   //ACTIVITY
@@ -83,6 +86,15 @@ const FormActivities = () => {
   // *** 4 *** Creo in components il file ListActivity.jsx
   // *** 6 *** Compilo final = riga 87
   let final = "";
+
+  if(isLoading){
+    final = <div>I'm Loading...</div>
+  }
+
+  if(error){
+    final = <div>Something went wrong, try again!</div>
+  }
+
   if(content != null){ //Se il content è stato riempito ritorna la funzione che specifichiamo sotto
     final = <ListActivity propsContent={content}/> // finale è uguale a ListActivity che ha come proprietà il content
     console.log("Funziona fetch")
@@ -90,10 +102,10 @@ const FormActivities = () => {
 
   return (
     <section className="container">
-      <div className="row col-4">
+      <div className="row">
         <form
           onSubmit={submitHandler}
-          className="d-flex flex-column m-2 p-3 border border-dark rounded"
+          className="col-4 d-flex flex-column m-2 p-3 border border-dark rounded"
         >
           <label htmlFor="activityType">Activity type</label>
           <input
@@ -140,8 +152,11 @@ const FormActivities = () => {
           <button className="btn btn-success mt-4">Add</button>
           <button className="btn btn-danger mt-4">Delete</button>
         </form>
-        {final}
+        <div className="col-7">
+        {final}   {/**DEVO AGGIUNGERLO QUANDO FACCIO LA FETCH PER VEDERLO IN PAGINA */}
       </div>
+      </div>
+      
     </section>
   );
 };
