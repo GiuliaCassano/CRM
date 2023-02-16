@@ -5,7 +5,7 @@ import { ListItemActivity } from "./ListItemActivity";
 
 const ListActivity = ({ propsContent }) => {
   return (
-    <table class="table">
+    <table className="table">
       <thead>
         <tr>
           <th scope="col">Activity Type</th>

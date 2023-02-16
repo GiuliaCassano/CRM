@@ -2,7 +2,7 @@ import { ListItemContact } from "./ListItemContact"
 
 const ListContact = ({propsContent}) => {
     return (
-        <table class="table">
+        <table className="table">
       <thead>
         <tr>
           <th scope="col">First name</th>

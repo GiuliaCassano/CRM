@@ -7,6 +7,7 @@ const FormContacts = () => {
   const [surnameValue, setSurnameValue] = useState("");
   const [checkInputSurname, setCheckInputSurname] = useState(false);
   //FARE COUNTRY
+  const [countryValue, setCountryValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [checkInputEmail, setCheckInputEmail] = useState(false);
   const [phoneValue, setPhoneValue] = useState("");
@@ -101,11 +102,44 @@ const FormContacts = () => {
     console.log("Funziona fetch")
   }
 
+
+   // °°°°°° 1 °°°°°  SUBMIT HANDLER
+   const submitControlHandler = async (event) => {
+    event.preventDefault();
+
+   const newContactToBE = {
+    firstName : nameValue,
+    lastName : surnameValue,
+    country : countryValue,
+    email : emailValue,
+    phoneNumber : phoneValue,
+  };
+
+  console.log(newContactToBE);
+
+  fetch("http://localhost:8080/contact/create", {
+    method : "POST",
+    headers : {
+      "Content-type" : "application/json",
+    },
+    body : JSON.stringify(newContactToBE)
+  })
+  .then((response) => response.json())
+  .then((newContactToBE) =>{
+    fetchGetAllContacts(),
+    console.log("Success, you have posted this new activity to BE", newContactToBE);
+  })
+  .catch((error) =>{
+    setError(error.message);
+    console.log(error);
+  })
+};
+
   return (
     <section className="container">
       <div className="row">
         <form
-          onSubmit={submitHandler}
+          onSubmit={submitControlHandler}
           className="col-4 d-flex flex-column m-2 p-3 border border-dark rounded"
         >
           <label htmlFor="name">First name</label>
@@ -371,8 +405,8 @@ const FormContacts = () => {
           }
           onChange={phoneChangeHandler}
           value={phoneValue}
-          type="email" 
-          id="email" 
+          type="text" 
+          id="phone" 
           />
           <button className="btn btn-success mt-4">Add</button>
           <button className="btn btn-danger mt-4">Delete</button>

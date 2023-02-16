@@ -7,6 +7,8 @@ const FormActivities = () => {
   const [checkInputManager, setCheckInputManager] = useState(false);
   const [activityValue, setActivityValue] = useState("");
   const [checkInputActivity, setCheckInputActivity] = useState(false);
+  const [descriptionValue, setDescriptionValue] = useState("");
+  const [checkInputDescription, setCheckInputDescription] = useState(true);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [content, setContent] = useState(null);
@@ -48,6 +50,8 @@ const FormActivities = () => {
     setIsLoading(false);
   }
 
+
+ 
   //ACTIVITY
   const activityChangeHandler = (event) => {
     setActivityValue(event.target.value);
@@ -69,11 +73,15 @@ const FormActivities = () => {
     if (event.target.value.length >= 3) {
       setCheckInputManager(true);
     } else setCheckInputManager(false);
-  };
+  }
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-  };
+  //DESCRIPTION
+  const descriptionChangeHandler = (event) => {
+    setDescriptionValue(event.target.value);
+    if(event.target.value.length <=200) {
+      setCheckInputDescription(true);
+    } else setCheckInputDescription(false)
+  }
 
   // ***1*** In react le [] dentro l'useEffect stanno a significare che la funziona avviene al caricamento della pagina
   useEffect(() => {
@@ -100,6 +108,40 @@ const FormActivities = () => {
     console.log("Funziona fetch")
   }
 
+  // °°°°°° 1 °°°°°  SUBMIT HANDLER----PER POST ACTIVITIES from FE to DB to TABLE
+  const submitHandler = async (event) => {
+    event.preventDefault();
+
+    //INIZIO LA FETCH --> POST
+    const newActivityToBE = {
+      activityType : activityValue,
+      dateTime : datetime,
+      manager : managerValue,
+      description : descriptionValue,
+    };
+
+    console.log(newActivityToBE);
+
+    fetch("http://localhost:8080/activity/create", {
+      method : "POST",
+      headers : {
+        "Content-type" : "application/json",
+      },
+      body : JSON.stringify(newActivityToBE)
+    })
+    .then((response) => response.json())
+    .then((newActivityToBE) =>{
+      fetchGetAllActivities(),
+      console.log("Success, you have posted this new activity to BE", newActivityToBE);
+    })
+     
+    .catch((error) =>{
+      setError(error.message);
+      console.log(error);
+    })
+    
+  };
+  
   return (
     <section className="container">
       <div className="row">
@@ -143,6 +185,13 @@ const FormActivities = () => {
 
           <label htmlFor="description">Description</label>
           <textarea
+          className={
+            checkInputDescription == true
+            ? "border border-succes"
+            : "border border-danger"
+          }
+          onChange={descriptionChangeHandler}
+          value={descriptionValue}
             name="description"
             id="description"
             cols="30"
