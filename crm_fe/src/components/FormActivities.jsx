@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ListActivity } from "./ListActivity";
-import "./styles/Form.css"
+import "./styles/Form.css";
 
 const FormActivities = () => {
   const [datetime, setDatetime] = useState("");
@@ -150,105 +150,103 @@ const FormActivities = () => {
   };
 
   return (
-    
-    <form className="container">
-      <div >
-      <div className="form-group row">
-        <label htmlFor="activityType" className="col-2 col-form-label">
-          Activity Type
-        </label>
-        <div className="col-10">
-          <input
-            className={`${
-              checkInputActivity == true
-                ? "border border-success"
-                : "border border-danger"
-            } 
+    <div className="container">
+      <div className="row justify-content-around">
+        <form className="col-8">
+          <div className="form-group row">
+            <label htmlFor="activityType" className="col-2 col-form-label">
+              Activity Type
+            </label>
+            <div className="col-10">
+              <input
+                className={`${
+                  checkInputActivity == true
+                    ? "border border-success"
+                    : "border border-danger"
+                } 
         form-control`} //In questo modo sono riuscita ad accorpare anche form-control
-            onChange={activityChangeHandler}
-            type="text"
-            id="activityType"
-            placeholder="Activity type"
-          />
-        </div>
-      </div>
+                onChange={activityChangeHandler}
+                type="text"
+                id="activityType"
+                placeholder="Activity type"/>
+            </div>
+          </div>
 
-      <div className="form-group row">
-        <label htmlFor="booking" className="col-sm-2 col-form-label">
-          Day and Time
-        </label>
-        <div className="col-sm-10">
-          <input
-            className="form-control"
-            type="datetime-local"
-            value={(datetime || "").toString().substring(0, 16)}
-            onChange={datetimeChangeHandler}
-            id="booking"
-            name="booking"
-            placeholder="Day and Time"
-          />
-          {isDateTooEarly && (
-            <div>The date entered cannot be earlier than today's date!</div>
-          )}
-        </div>
-        </div>
+          <div className="form-group row">
+            <label htmlFor="booking" className="col-2 col-form-label">
+              Day and Time
+            </label>
+            <div className="col-sm-10">
+              <input
+                className="form-control"
+                type="datetime-local"
+                value={(datetime || "").toString().substring(0, 16)}
+                onChange={datetimeChangeHandler}
+                id="booking"
+                name="booking"
+                placeholder="Day and Time"
+              />
+              {isDateTooEarly && (
+                <div>The date entered cannot be earlier than today's date!</div>
+              )}
+            </div>
+          </div>
 
-        <div className="form-group row">
-          <label htmlFor="manager" className="col-sm-2 col-form-label">
-            Manager
-          </label>
-          <div className="col-sm-10">
-            <input
-              className={`${
-                checkInputManager == true
-                  ? "border border-success "
-                  : "border border-danger "
-              } 
+          <div className="form-group row">
+            <label htmlFor="manager" className="col-2 col-form-label">
+              Manager
+            </label>
+            <div className="col-sm-10">
+              <input
+                className={`${
+                  checkInputManager == true
+                    ? "border border-success "
+                    : "border border-danger "
+                } 
       form-control`}
-              onChange={managerChangeHandler}
-              value={managerValue}
-              type="text"
-              id="manager"
-              placeholder="Manager's name"
-            />
+                onChange={managerChangeHandler}
+                value={managerValue}
+                type="text"
+                id="manager"
+                placeholder="Manager's name"/>
+            </div>
           </div>
-        </div>
 
-        <div className="form-group row">
-          <label htmlFor="description" className="col-sm-2 col-form-label">
-            Description
-          </label>
-          <div className="col-sm-10">
-            <textarea
-              className={`${
-                checkInputDescription == true
-                  ? "border border-success"
-                  : "border border-danger"
-              } 
+          <div className="form-group row">
+            <label htmlFor="description" className="col-2 col-form-label">
+              Description
+            </label>
+            <div className="col-sm-10">
+              <textarea
+                className={`${
+                  checkInputDescription == true
+                    ? "border border-success"
+                    : "border border-danger"
+                } 
            form-control`}
-              onChange={descriptionChangeHandler}
-              value={descriptionValue}
-              name="description"
-              id="description"
-              cols="30"
-              rows="7"
-            ></textarea>
+                onChange={descriptionChangeHandler}
+                value={descriptionValue}
+                name="description"
+                id="description"
+                cols="30"
+                rows="7"></textarea>
+            </div>
           </div>
-        </div>
-        <div className="col-sm-10">
-          <button onClick={submitHandler} className="btn btn-success mt-4">
-            Add
-          </button>
-          <button className="btn btn-danger mt-4">Delete</button>
-        </div>
-        </div>
 
-        <div className="form-group row">
-          {final}
-          {/**DEVO AGGIUNGERLO QUANDO FACCIO LA FETCH PER VEDERLO IN PAGINA  **/}
-        </div>
-      
-    </form>
+          <div className="col-sm-10 buttons">
+            <button
+              onClick={submitHandler}
+              className="btn btn-success mt-4 mx-5"
+            >
+              Add
+            </button>
+            <button className="btn btn-danger mt-4">Delete</button>
+          </div>
+        </form>
+
+        <div className="form-group row">{final}</div>
+      </div>
+    </div>
   );
 };
 export { FormActivities };
