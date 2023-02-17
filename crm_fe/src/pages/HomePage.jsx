@@ -6,9 +6,12 @@ const HomePage = () => {
   return (
     <div>
       <CardHeader></CardHeader>
-      <div className="d-flex justify-content-around mt-5">
-        <CardActivities></CardActivities>
-        <CardContact></CardContact>
+      
+      <div className="container">
+        <div className="row justify-content-around">
+          <CardActivities />
+          <CardContact />
+        </div>
       </div>
     </div>
   );

@@ -15,42 +15,40 @@ const FormContacts = () => {
   const [error, setError] = useState(null);
   const [content, setContent] = useState(null);
 
-
   //*** 2 ***
-  const fetchGetAllContacts = async() => {
+  const fetchGetAllContacts = async () => {
     console.log("Fetch");
 
     try {
       const response = await fetch("http://localhost:8080/contact/all");
       console.log(response);
-      if (!response.ok){
+      if (!response.ok) {
         throw new Error("Something went wrong!");
-      };
+      }
 
       const data = await response.json();
       console.log(data);
 
-      const dataMapped = await data.map((elem, index) =>{
-        return{
+      const dataMapped = await data.map((elem, index) => {
+        return {
           key: index,
-          firstName : elem.firstName,
-          lastName : elem.lastName,
-          country : elem.country,
-          email : elem.email,
-          phoneNumber : elem.phoneNumber,
-          activities : elem.activities
-        }
-      })
+          firstName: elem.firstName,
+          lastName: elem.lastName,
+          country: elem.country,
+          email: elem.email,
+          phoneNumber: elem.phoneNumber,
+          activities: elem.activities,
+        };
+      });
       console.log(dataMapped);
 
-     setContent(dataMapped);
-     console.log(content);
-
+      setContent(dataMapped);
+      console.log(content);
     } catch (error) {
-      setError(error)
+      setError(error);
       console.log(error);
     }
-  }
+  };
 
   //NAME
   const nameChangeHandler = (event) => {
@@ -68,110 +66,130 @@ const FormContacts = () => {
     } else setCheckInputSurname(false);
   };
 
-  //EMAIL Aggiungere nell'if il controllo della @
+  //EMAIL
   const emailChangeHandler = (event) => {
     setEmailValue(event.target.value);
-    if(event.target.value.length >= 8){
-        setCheckInputEmail(true)
-    }else setCheckInputEmail(false);
-  }
+    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (emailRegex.test(event.target.value) && event.target.value.length >= 8) {
+      setCheckInputEmail(true);
+    } else setCheckInputEmail(false);
+  };
 
   //PHONE NUMBER Aggiungere nell'if il controllo per inserire solo numeri
   const phoneChangeHandler = (event) => {
     setPhoneValue(event.target.value);
-    if(event.target.value.length = 10){
-        setPhoneValue(true)
-    } else setPhoneValue(false);
-  }
-
-
-  const submitHandler = (event) => {
-    event.preventDefault();
+    if (event.target.value.length == 10) {
+      setCheckInputPhone(true);
+    } else setCheckInputPhone(false);
   };
 
   // ***1*** In react le [] dentro l'useEffect stanno a significare che la funziona avviene al caricamento della pagina
-  useEffect(() =>{
+  useEffect(() => {
     fetchGetAllContacts();
-  },
-  []);
+  }, []);
 
   let final = "";
 
-  if (content != null){
-    final = <ListContact propsContent= {content}/>
-    console.log("Funziona fetch")
+  if (content != null) {
+    final = <ListContact propsContent={content} />;
+    console.log("Funziona fetch");
   }
 
-
-   // °°°°°° 1 °°°°°  SUBMIT HANDLER
-   const submitControlHandler = async (event) => {
+  // °°°°°° 1 °°°°°  SUBMIT HANDLER ---> POST
+  const submitControlHandler = async (event) => {
     event.preventDefault();
+    if (
+      checkInputName == false ||
+      checkInputSurname == false ||
+      checkInputEmail == false ||
+      checkInputPhone == false
+    ) {
+      console.log("Something went wrong");
+      return;
+    }
 
-   const newContactToBE = {
-    firstName : nameValue,
-    lastName : surnameValue,
-    country : countryValue,
-    email : emailValue,
-    phoneNumber : phoneValue,
+    const newContactToBE = {
+      firstName: nameValue,
+      lastName: surnameValue,
+      country: countryValue,
+      email: emailValue,
+      phoneNumber: phoneValue,
+    };
+
+    console.log(newContactToBE);
+    fetch("http://localhost:8080/contact/create", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(newContactToBE),
+    })
+      .then((response) => response.json())
+      .then((newContactToBE) => {
+        fetchGetAllContacts(),
+          console.log(
+            "Success, you have posted this new activity to BE",
+            newContactToBE
+          );
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log(error);
+      });
   };
 
-  console.log(newContactToBE);
-
-  fetch("http://localhost:8080/contact/create", {
-    method : "POST",
-    headers : {
-      "Content-type" : "application/json",
-    },
-    body : JSON.stringify(newContactToBE)
-  })
-  .then((response) => response.json())
-  .then((newContactToBE) =>{
-    fetchGetAllContacts(),
-    console.log("Success, you have posted this new activity to BE", newContactToBE);
-  })
-  .catch((error) =>{
-    setError(error.message);
-    console.log(error);
-  })
-};
-
   return (
-    <section className="container">
-      <div className="row">
-        <form
-          onSubmit={submitControlHandler}
-          className="col-4 d-flex flex-column m-2 p-3 border border-dark rounded"
-        >
-          <label htmlFor="name">First name</label>
-          <input
-            className={
-              checkInputName == true
-                ? "border border-success border-0 border-bottom"
-                : "border border-danger border-0 border-bottom"
-            }
-            onChange={nameChangeHandler}
-            value={nameValue}
-            type="text"
-            id="firstName"
-          />
-          <label htmlFor="surname">Last name</label>
-          <input
-            className={
-              checkInputSurname == true
-                ? "border border-success border-0 border-bottom"
-                : "border border-danger border-0 border-bottom"
-            }
-            onChange={surnameChangeHandler}
-            value={surnameValue}
-            type="text"
-            id="lastName"
-          />
-          <label htmlFor="country">Country</label>
-          <div>
+      <form className="container">
+        <div className="form-group row">
+          <label htmlFor="name" className="col-sm-2 col-form-label">
+            First name
+          </label>
+          <div className="col-sm-10">
+            <input
+              className={`${
+                checkInputName == true
+                  ? "border border-success "
+                  : "border border-danger "
+              }
+            form-control`}
+              onChange={nameChangeHandler}
+              value={nameValue}
+              type="text"
+              id="firstName"
+              placeholder="First name"
+            />
+          </div>
+        </div>
+
+        <div className="form-group row">
+          <label htmlFor="surname" className="col-sm-2 col-form-label">
+            Last name
+          </label>
+          <div className="col-sm-10">
+            <input
+              className={`${
+                checkInputSurname == true
+                  ? "border border-success"
+                  : "border border-danger"
+              }
+              form-control`}
+              onChange={surnameChangeHandler}
+              value={surnameValue}
+              type="text"
+              id="lastName"
+              placeholder="Last name"
+            />
+          </div>
+        </div>
+        <div className="form-group row">
+          <label htmlFor="country" className="col-sm-2 col-form-label">
+            Country
+          </label>
+          <div className="col-sm-10">
             <select
               type="dropdown"
               id="country"
-              className="form-dropdown"
+              className="form-control"
               name="country"
               data-component="dropdown"
             >
@@ -383,39 +401,60 @@ const FormContacts = () => {
               <option value="Zimbabwe">Zimbabwe</option>
             </select>
           </div>
-
-          <label htmlFor="email">Email</label>
-          <input 
-          className= {
-            checkInputEmail == true
-            ? "border border-success border-0 border-bottom"
-            : "border border-danger border-0 border-bottom"
-          }
-          onChange={emailChangeHandler}
-          value={emailValue}
-          type="email" 
-          id="email" 
-          />
-          <label htmlFor="phone">Phone Number</label>
-          <input 
-          className= {
-            checkInputEmail == true
-            ? "border border-success border-0 border-bottom"
-            : "border border-danger border-0 border-bottom"
-          }
-          onChange={phoneChangeHandler}
-          value={phoneValue}
-          type="text" 
-          id="phone" 
-          />
-          <button className="btn btn-success mt-4">Add</button>
-          <button className="btn btn-danger mt-4">Delete</button>
-        </form>
-        <div className="col-7">
-        {final}
         </div>
+
+        <div className="form-group row">
+          <label htmlFor="email" className="col-sm-2 col-form-label">
+            Email
+          </label>
+          <div className="col-sm-10">
+            <input
+              className={`${
+                checkInputEmail == true
+                  ? "border border-success"
+                  : "border border-danger"
+              }
+          form-control`}
+              onChange={emailChangeHandler}
+              value={emailValue}
+              type="email"
+              id="email"
+              placeholder="Email"
+            />
+          </div>
+        </div>
+
+        <div className="form-group row">
+          <label htmlFor="phone" className="col-sm-2 col-form-label">
+            Phone Number
+          </label>
+          <div className="col-sm-10">
+            <input
+              className={`${
+                checkInputEmail == true
+                  ? "border border-success"
+                  : "border border-danger"
+              }
+            form-control`}
+              onChange={phoneChangeHandler}
+              value={phoneValue}
+              type="text"
+              id="phone"
+              placeholder="Phone number"
+            />
+          </div>
+        </div>
+        <div className="col-sm-10">
+        <button onClick={submitControlHandler} className="btn btn-success mt-4">
+          Add
+        </button>
+        <button className="btn btn-danger mt-4">Delete</button>
       </div>
-    </section>
+
+      <div className="form-group row">{final}</div>
+      </form>
+      
+   
   );
 };
 export { FormContacts };

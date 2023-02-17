@@ -71,14 +71,16 @@ const LoginUser = () => {
   //PASSWORD Aggiungere controllo lettere, numeri, simboli e CHIEDERE PERCHè PRIMA RIUSCIVO A SCRIVERE, ORA NO = PASSWORD CONFIRMATION
   const pswChangeHandler = (event) => {
     setPswValue(event.target.value);
-    if(event.target.value.length >= 8){
+    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if(event.target.value.length >= 8 && emailRegex.test(event.target.value) ){
         setCheckInputPsw(true)
     }else setCheckInputPsw(false);
   }
   //PASSWORD CONFIRMATION Aggiungere controllo lettere, numeri, simboli e che sia uguale alla PASSWORD
   const pswConfirmChangeHandler = (event) => {
     setPswConfirmValue(event.target.value);
-if(event.target.value.length >= 8  ){    {/** && event.target.value == come devo scriverlo?*/}
+    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+if(event.target.value.length >= 8 && emailRegex.test(event.target.value) ){    
         setCheckInputPswConfirm(true)
     }else setCheckInputPswConfirm(false);
   }

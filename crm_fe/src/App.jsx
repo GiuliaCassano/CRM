@@ -15,7 +15,7 @@ function App() {
       {/* CREO LE MIE ROTTE */}
       <Routes>
         <Route path="/loginpage" element={<LoginPage />}></Route> 
-        <Route path="/home" element={<HomePage/>} ></Route> 
+        <Route path="/" element={<HomePage/>} ></Route> 
         <Route path="/formactivities" element={<FormActivities/>}></Route>
         <Route path="/formcontacts" element={<FormContacts/>}></Route>
 

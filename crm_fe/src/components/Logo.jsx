@@ -4,7 +4,7 @@ NavLink;
 
 function Logo(){
     return(
-        <NavLink to="/home" className="img-fluid" >
+        <NavLink to="/" className="img-fluid" >
             <img src="src\images\Logo_cromo.png" className="mx-5"  />
         </NavLink>
     )
