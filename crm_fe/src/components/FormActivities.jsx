@@ -176,7 +176,7 @@ const FormActivities = () => {
             <label htmlFor="booking" className="col-2 col-form-label">
               Day and Time
             </label>
-            <div className="col-sm-10">
+            <div className="col-10">
               <input
                 className="form-control"
                 type="datetime-local"
@@ -196,7 +196,7 @@ const FormActivities = () => {
             <label htmlFor="manager" className="col-2 col-form-label">
               Manager
             </label>
-            <div className="col-sm-10">
+            <div className="col-10">
               <input
                 className={`${
                   checkInputManager == true
@@ -216,7 +216,7 @@ const FormActivities = () => {
             <label htmlFor="description" className="col-2 col-form-label">
               Description
             </label>
-            <div className="col-sm-10">
+            <div className="col-10">
               <textarea
                 className={`${
                   checkInputDescription == true
@@ -233,10 +233,10 @@ const FormActivities = () => {
             </div>
           </div>
 
-          <div className="col-sm-10 buttons">
+          <div className="col-12 buttons">
             <button
               onClick={submitHandler}
-              className="btn btn-success mt-4 mx-5"
+              className="btn btn-success mt-4 "
             >
               Add
             </button>

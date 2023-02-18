@@ -166,7 +166,7 @@ const FormContacts = () => {
             <label htmlFor="surname" className="col-2 col-form-label">
               Last name
             </label>
-            <div className="col-sm-10">
+            <div className="col-10">
               <input
                 className={`${
                   checkInputSurname == true
@@ -186,7 +186,7 @@ const FormContacts = () => {
             <label htmlFor="country" className="col-2 col-form-label">
               Country
             </label>
-            <div className="col-sm-10">
+            <div className="col-10">
               <select
                 type="dropdown"
                 id="country"
@@ -410,7 +410,7 @@ const FormContacts = () => {
             <label htmlFor="email" className="col-2 col-form-label">
               Email
             </label>
-            <div className="col-sm-10">
+            <div className="col-10">
               <input
                 className={`${
                   checkInputEmail == true
@@ -430,7 +430,7 @@ const FormContacts = () => {
             <label htmlFor="phone" className="col-2 col-form-label">
               Phone Number
             </label>
-            <div className="col-sm-10">
+            <div className="col-10">
               <input
                 className={`${
                   checkInputEmail == true
@@ -446,10 +446,10 @@ const FormContacts = () => {
             </div>
           </div>
 
-          <div className="col-sm-10 buttons">
+          <div className="col-10 buttons">
             <button
               onClick={submitControlHandler}
-              className="btn btn-success mt-4 mx-5"
+              className="btn btn-success mt-4"
             >
               Add
             </button>
