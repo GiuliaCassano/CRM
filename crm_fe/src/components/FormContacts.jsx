@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { ListContact } from "./ListContact";
+import queryString from "query-string";
 
 const FormContacts = () => {
+  const [id, setId] = useState("");
   const [nameValue, setNameValue] = useState("");
   const [checkInputName, setCheckInputName] = useState(false);
   const [surnameValue, setSurnameValue] = useState("");
@@ -13,10 +15,12 @@ const FormContacts = () => {
   const [phoneValue, setPhoneValue] = useState("");
   const [checkInputPhone, setCheckInputPhone] = useState(false);
   const [error, setError] = useState(null);
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState([]);
 
   //*** 2 ***
   const fetchGetAllContacts = async () => {
+    const query = queryString.parse(window.location.search);
+    setId(query.id);
     console.log("Fetch");
 
     try {
@@ -29,15 +33,16 @@ const FormContacts = () => {
       const data = await response.json();
       console.log(data);
 
-      const dataMapped = await data.map((elem, index) => {
+      const dataMapped = await data.map((content, index) => {
         return {
           key: index,
-          firstName: elem.firstName,
-          lastName: elem.lastName,
-          country: elem.country,
-          email: elem.email,
-          phoneNumber: elem.phoneNumber,
-          activities: elem.activities,
+          id: content.id,
+          firstName: content.firstName,
+          lastName: content.lastName,
+          country: content.country,
+          email: content.email,
+          phoneNumber: content.phoneNumber,
+          activities: content.activities,
         };
       });
       console.log(dataMapped);
@@ -90,9 +95,36 @@ const FormContacts = () => {
 
   let final = "";
 
+  const onDeleteControlHandler = (idToBeDeleted) => {
+
+    fetch(`http://localhost:8080/contact/delete?id=${idToBeDeleted}` , {
+      method: "DELETE",
+
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        fetchGetAllContacts();
+        console.log("*****");
+        console.log(idToBeDeleted);
+      })
+
+      .catch((error) => {
+        setError(error.message);
+        console.log(error);
+      });
+  };
+
+  //PRINCIPALE
   if (content != null) {
-    final = <ListContact propsContent={content} />;
-    console.log("Funziona fetch");
+    final = (
+      <ListContact
+        propsContent={content}
+        deleteControlHandler={onDeleteControlHandler}
+      />
+    );
+    console.log("Funziona fetch delete");
   }
 
   // °°°°°° 1 °°°°°  SUBMIT HANDLER ---> POST
@@ -158,7 +190,8 @@ const FormContacts = () => {
                 value={nameValue}
                 type="text"
                 id="firstName"
-                placeholder="First name"/>
+                placeholder="First name"
+              />
             </div>
           </div>
 
@@ -178,7 +211,8 @@ const FormContacts = () => {
                 value={surnameValue}
                 type="text"
                 id="lastName"
-                placeholder="Last name"/>
+                placeholder="Last name"
+              />
             </div>
           </div>
 
@@ -422,7 +456,8 @@ const FormContacts = () => {
                 value={emailValue}
                 type="email"
                 id="email"
-                placeholder="Email"/>
+                placeholder="Email"
+              />
             </div>
           </div>
 
@@ -442,7 +477,8 @@ const FormContacts = () => {
                 value={phoneValue}
                 type="text"
                 id="phone"
-                placeholder="Phone number"/>
+                placeholder="Phone number"
+              />
             </div>
           </div>
 
@@ -453,11 +489,16 @@ const FormContacts = () => {
             >
               Add
             </button>
-            <button className="btn btn-danger mt-4">Delete</button>
           </div>
         </form>
-
         <div className="form-group row">{final}</div>
+        {/* <div className="form-group row">        
+            {final}
+            <td>
+              <button className="btn btn-danger">Delete</button>
+            </td> 
+          
+        </div>*/}
       </div>
     </div>
   );

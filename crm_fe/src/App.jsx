@@ -7,7 +7,6 @@ import { FormActivities } from "./components/FormActivities";
 import { FormContacts } from "./components/FormContacts";
 
 
-
 function App() {
   return (
     <div className="app">

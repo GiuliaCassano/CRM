@@ -1,8 +1,8 @@
-import { ListItemContact } from "./ListItemContact"
+import { ListItemContact } from "./ListItemContact";
 
-const ListContact = ({propsContent}) => {
-    return (
-        <table className="table">
+const ListContact = ({ propsContent, deleteControlHandler }) => {
+  return (
+    <table className="table">
       <thead>
         <tr>
           <th scope="col">First name</th>
@@ -13,18 +13,18 @@ const ListContact = ({propsContent}) => {
         </tr>
       </thead>
       <tbody>
-      {propsContent.map((elem, index) =>{
-                return (
-                    <ListItemContact key = {index} propsContent = {elem}/>
-                )
-            })}
+        {propsContent.map((elem, index) => {
+          return (
+            <ListItemContact
+              key={index}
+              id={propsContent.id}
+              propsContent={elem}
+              deleteControlHandler={deleteControlHandler}
+            />
+          );
+        })}
       </tbody>
     </table>
-       
-       
-       
-      
-    )
-}
-
-export {ListContact}
+  );
+};
+export { ListContact };
