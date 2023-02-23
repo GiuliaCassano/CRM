@@ -6,10 +6,10 @@ const HomePage = () => {
   return (
     <div>
       <CardHeader></CardHeader>
-      
+
       <div className="container">
         <div className="row justify-content-around">
-          <CardActivities />
+          <CardActivities/>
           <CardContact />
         </div>
       </div>

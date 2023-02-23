@@ -1,61 +1,24 @@
-import { useEffect, useState } from "react";
-import { ListContact } from "./ListContact";
-import queryString from "query-string";
+import { useState } from "react";
 
-const FormContacts = () => {
-  const [id, setId] = useState("");
+const SignUp = () => {
+  //Quando qualcosa cambia in react va associato ad uno useState()
   const [nameValue, setNameValue] = useState("");
   const [checkInputName, setCheckInputName] = useState(false);
   const [surnameValue, setSurnameValue] = useState("");
   const [checkInputSurname, setCheckInputSurname] = useState(false);
-  const [countryValue, setCountryValue] = useState("");
-  const [checkInputCountry, setCheckInputCountry] = useState(false);
+  const [usernameValue, setUsernameValue] = useState("");
+  const [checkInputUsername, setCheckInputUsername] = useState(false);
+  const dateObj = new Date(2000, 0, 1);
+  const [date, setDate] = useState(dateObj);
   const [emailValue, setEmailValue] = useState("");
   const [checkInputEmail, setCheckInputEmail] = useState(false);
-  const [phoneValue, setPhoneValue] = useState("");
-  const [checkInputPhone, setCheckInputPhone] = useState(false);
-  const [error, setError] = useState(null);
-  const [content, setContent] = useState([]);
-
-  //*** 2 ***
-  const fetchGetAllContacts = async () => {
-    const query = queryString.parse(window.location.search);
-    setId(query.id);
-    console.log("Fetch");
-
-    try {
-      const response = await fetch("http://localhost:8080/contact/all");
-      console.log(response);
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
-
-      const data = await response.json();
-      console.log(data);
-
-      const dataMapped = await data.map((content, index) => {
-        return {
-          key: index,
-          id: content.id,
-          firstName: content.firstName,
-          lastName: content.lastName,
-          country: content.country,
-          email: content.email,
-          phoneNumber: content.phoneNumber,
-          activities: content.activities,
-        };
-      });
-      console.log(dataMapped);
-
-      setContent(dataMapped);
-      console.log(content);
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    }
-  };
+  const [pswValue, setPswValue] = useState("");
+  const [checkInputPsw, setCheckInputPsw] = useState(false);
+  const [pswConfirmValue, setPswConfirmValue] = useState("");
+  const [checkInputPswConfirm, setCheckInputPswConfirm] = useState(false);
 
   //NAME
+  //2 Funzione che aggiorna lo stato con il nome da associare all'input
   const nameChangeHandler = (event) => {
     setNameValue(event.target.value);
     if (event.target.value.length >= 3) {
@@ -71,121 +34,72 @@ const FormContacts = () => {
     } else setCheckInputSurname(false);
   };
 
-  //COUNTRY
-  const countryChangeHandler = (event) => {
-    setCountryValue(event.target.value);
-    if (event.target != ""){
-      setCheckInputCountry(true);
-    } else setCheckInputCountry(false);
-  }
+  //USERNAME
+  const usernameChangeHandler = (event) => {
+    setUsernameValue(event.target.value);
+    if (event.target.value.length >= 3) {
+      setCheckInputUsername(true);
+    } else setCheckInputUsername(false);
+  };
 
-  //EMAIL
+  //BIRTHDATE
+  const birthDateChangeHandler = (event) => {
+    const setMonth = (month) => {
+      const newDate = new Date(date.getFullYear(), month, date.getDate());
+      setDate(newDate);
+    };
+    const setDay = (day) => {
+      const newDate = new Date(date.getFullYear(), date.getMonth(), day);
+      setDate(newDate);
+    };
+    const setYear = (year) => {
+      const newDate = new Date(year, date.getMonth(), date.getDate());
+      setDate(newDate);
+    };
+  };
+
+  //EMAIL Aggiungere nell'if il controllo della @
   const emailChangeHandler = (event) => {
     setEmailValue(event.target.value);
-    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    if (emailRegex.test(event.target.value) && event.target.value.length >= 8) {
+    if (event.target.value.length >= 8) {
       setCheckInputEmail(true);
     } else setCheckInputEmail(false);
   };
 
-  //PHONE NUMBER Aggiungere nell'if il controllo per inserire solo numeri
-  const phoneChangeHandler = (event) => {
-    setPhoneValue(event.target.value);
-    if (event.target.value.length == 10) {
-      setCheckInputPhone(true);
-    } else setCheckInputPhone(false);
+  //PASSWORD Aggiungere controllo lettere, numeri, simboli e CHIEDERE PERCHè PRIMA RIUSCIVO A SCRIVERE, ORA NO = PASSWORD CONFIRMATION
+  const pswChangeHandler = (event) => {
+    setPswValue(event.target.value);
+    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (event.target.value.length >= 8 && emailRegex.test(event.target.value)) {
+      setCheckInputPsw(true);
+    } else setCheckInputPsw(false);
+  };
+  //PASSWORD CONFIRMATION Aggiungere controllo lettere, numeri, simboli e che sia uguale alla PASSWORD
+  const pswConfirmChangeHandler = (event) => {
+    setPswConfirmValue(event.target.value);
+    const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (event.target.value.length >= 8 && emailRegex.test(event.target.value)) {
+      setCheckInputPswConfirm(true);
+    } else setCheckInputPswConfirm(false);
   };
 
-  // ***1*** In react le [] dentro l'useEffect stanno a significare che la funziona avviene al caricamento della pagina
-  useEffect(() => {
-    fetchGetAllContacts();
-  }, []);
-
-  let final = "";
-
-  const onDeleteControlHandler = (idToBeDeleted) => {
-
-    fetch(`http://localhost:8080/contact/delete?id=${idToBeDeleted}` , {
-      method: "DELETE",
-
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((response) => {
-        fetchGetAllContacts();
-        console.log("*****");
-        console.log(idToBeDeleted);
-      })
-
-      .catch((error) => {
-        setError(error.message);
-        console.log(error);
-      });
-  };
-
-  //PRINCIPALE
-  if (content != null) {
-    final = (
-      <ListContact
-        propsContent={content}
-        deleteControlHandler={onDeleteControlHandler}
-      />
-    );
-    console.log("Funziona fetch delete");
-  }
-
-  // °°°°°° 1 °°°°°  SUBMIT HANDLER ---> POST
-  const submitControlHandler = async (event) => {
+  // 1 La funzione che segue viene fatta per bypassare il funzionamento di default del pulsante
+  //Il preventDefault quindi ci da il controllo
+  const submitHandler = (event) => {
     event.preventDefault();
-    if (
-      checkInputName == false ||
-      checkInputSurname == false ||
-      checkInputEmail == false ||
-      checkInputPhone == false
-    ) {
-      console.log("Something went wrong");
-      return;
-    }
-
-    const newContactToBE = {
-      firstName: nameValue,
-      lastName: surnameValue,
-      country: countryValue,
-      email: emailValue,
-      phoneNumber: phoneValue,
-    };
-
-    console.log(newContactToBE);
-    fetch("http://localhost:8080/contact/create", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(newContactToBE),
-    })
-      .then((response) => response.json())
-      .then((newContactToBE) => {
-        fetchGetAllContacts(),
-          console.log(
-            "Success, you have posted this new activity to BE",
-            newContactToBE
-          );
-      })
-      .catch((error) => {
-        setError(error.message);
-        console.log(error);
-      });
   };
+  console.log(pswValue);
 
   return (
     <div className="container">
-      <div className="row justify-content-around">
-        <form className="col-8 ">
+      <div className=" row justify-content-around">
+        <form onSubmit={submitHandler} className="col-8 ">
+        
           <div className="form-group row">
-            <label htmlFor="name" className="col-2 col-form-label">
+            <label htmlFor="firstNameLogin" className="col-2 col-form-label">
               First name
             </label>
+
             <div className="col-10">
               <input
                 className={`${
@@ -197,29 +111,76 @@ const FormContacts = () => {
                 onChange={nameChangeHandler}
                 value={nameValue}
                 type="text"
-                id="firstName"
-                placeholder="First name"
+                id="firstNameLogin"
               />
             </div>
           </div>
 
           <div className="form-group row">
-            <label htmlFor="surname" className="col-2 col-form-label">
+            <label htmlFor="lastNameLogin" className="col-2 col-form-label">
               Last name
             </label>
             <div className="col-10">
               <input
                 className={`${
-                  checkInputSurname == true
-                    ? "border border-success"
-                    : "border border-danger"
+                  checkInputName == true
+                    ? "border border-success "
+                    : "border border-danger "
                 }
-              form-control`}
+            form-control`}
                 onChange={surnameChangeHandler}
                 value={surnameValue}
                 type="text"
-                id="lastName"
-                placeholder="Last name"
+                id="lastNameLogin"
+              />
+            </div>
+          </div>
+
+          <div className="form-group row">
+            <label htmlFor="userName" className="col-2 col-form-label">
+              Username
+            </label>
+            <div className="col-10">
+              <input
+                className={`${
+                  checkInputName == true
+                    ? "border border-success "
+                    : "border border-danger "
+                }
+            form-control`}
+                onChange={usernameChangeHandler}
+                value={usernameValue}
+                type="text"
+                id="usernameLogin"
+              />
+            </div>
+          </div>
+
+          <div className="form-group row">
+            <label htmlFor="birthdate" className="col-2 col-form-label">
+              Birthdate
+            </label>
+            <div className="col-10">
+              <input type="date" id="birthdate" className="form-control" />
+            </div>
+          </div>
+
+          <div className="form-group row">
+            <label htmlFor="emailLogin" className="col-2 col-form-label">
+              Email
+            </label>
+            <div className="col-10">
+              <input
+                className={`${
+                  checkInputName == true
+                    ? "border border-success "
+                    : "border border-danger "
+                }
+            form-control`}
+                onChange={emailChangeHandler}
+                value={emailValue}
+                type="email"
+                id="emailLogin"
               />
             </div>
           </div>
@@ -235,7 +196,6 @@ const FormContacts = () => {
                 className="form-control"
                 name="country"
                 data-component="dropdown"
-                onChange={countryChangeHandler}
               >
                 <option value="">Select your country</option>
                 <option value="Afghanistan">Afghanistan</option>
@@ -450,60 +410,51 @@ const FormContacts = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="email" className="col-2 col-form-label">
-              Email
+            <label htmlFor="psw" className="col-2 col-form-label">
+              Password
             </label>
             <div className="col-10">
               <input
                 className={`${
-                  checkInputEmail == true
-                    ? "border border-success"
-                    : "border border-danger"
+                  checkInputName == true
+                    ? "border border-success "
+                    : "border border-danger "
                 }
-          form-control`}
-                onChange={emailChangeHandler}
-                value={emailValue}
-                type="email"
-                id="email"
-                placeholder="Email"
+            form-control`}
+                onChange={pswChangeHandler}
+                value={pswValue}
+                type="password"
+                id="psw"
               />
             </div>
           </div>
 
           <div className="form-group row">
-            <label htmlFor="phone" className="col-2 col-form-label">
-              Phone Number
+            <label htmlFor="pswConfirm" className="col-2 col-form-label">
+              Password confirmation
             </label>
             <div className="col-10">
               <input
                 className={`${
-                  checkInputEmail == true
-                    ? "border border-success"
-                    : "border border-danger"
+                  checkInputName == true
+                    ? "border border-success "
+                    : "border border-danger "
                 }
             form-control`}
-                onChange={phoneChangeHandler}
-                value={phoneValue}
-                type="text"
-                id="phone"
-                placeholder="Phone number"
+                onChange={pswConfirmChangeHandler}
+                value={pswConfirmValue}
+                type="password"
+                id="pswConfirm"
               />
             </div>
           </div>
 
           <div className="col-10 buttons">
-            <button
-              onClick={submitControlHandler}
-              className="btn btn-success mt-4"
-            >
-              Add
-            </button>
+            <button className="btn btn-info mt-4">Login</button>
           </div>
         </form>
-        <div className="form-group row">{final}</div>
-       
       </div>
     </div>
   );
 };
-export { FormContacts };
+export { SignUp };

@@ -60,7 +60,14 @@ const FormActivities = () => {
   };
 
   //DATETIME
-  function datetimeChangeHandler(event) {
+  
+//   const provaPerGiulia = "10-03-2023T00:00"
+//     const temp=provaPerGiulia.split("T");
+//     const giorno = temp[0];
+//     const ora = temp[1];
+//     console.log(giorno + " " + ora);
+// dove provaPerGiulia è il tuo localdatetime
+   function datetimeChangeHandler(event) {
     setIsDateTooEarly(false);
     if (!event.target["validity"].valid) return;
     const datetime = event.target["value"] + ":00Z";
@@ -73,6 +80,9 @@ const FormActivities = () => {
       setDatetime(datetime);
     }
   }
+  
+  
+
 
   //MANAGER
   const managerChangeHandler = (event) => {
@@ -148,7 +158,7 @@ const FormActivities = () => {
         console.log(error);
       });
   };
-
+  
   return (
     <div className="container">
       <div className="row justify-content-around">
@@ -240,7 +250,6 @@ const FormActivities = () => {
             >
               Add
             </button>
-            <button className="btn btn-danger mt-4">Delete</button>
           </div>
         </form>
 

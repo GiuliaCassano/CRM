@@ -10,10 +10,7 @@ const ListItemContact = ({ propsContent, deleteControlHandler }) => {
         <td>
           <button
             className="btn btn-danger"
-            //onClick={deleteControlHandler(propsContent.id)}
-            onClick = {() => deleteControlHandler(propsContent.id)}
-          >
-            Delete
+            onClick = {() => deleteControlHandler(propsContent.id)}>Delete
           </button>
         </td>
       </tr>

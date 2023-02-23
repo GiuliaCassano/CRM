@@ -14,7 +14,17 @@ main {
 }
 
 .navbar__item {
-    padding: 16px 16px;
+    
     cursor: pointer;
     vertical-align:text-bottom;
+}
+
+.mybutton {
+    min-width: 100px;
+    margin-inline : 10px;
+ 
+}
+
+.search {
+    height : 2rem;
 }
