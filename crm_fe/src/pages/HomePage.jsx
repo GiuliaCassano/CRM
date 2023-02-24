@@ -4,10 +4,10 @@ import { CardHeader } from "../components/CardHeader";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="backgroundHome">
       <CardHeader></CardHeader>
 
-      <div className="container">
+      <div className="container ">
         <div className="row justify-content-around">
           <CardActivities/>
           <CardContact />

@@ -30,21 +30,21 @@ const SignIn = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container background base">
       <div className="row justify-content-around">
-        <form className="col-12 col-lg-6 ">
-
+      <h3 className="col-12 pt-3 text-center">Sign IN!</h3>
+        <form className="col-10 col-lg-6 ">
             <div className="form-group container ">
                 <div className="row justify-content-center">
-                <img src="src\images\OminoBlu.jpg" className="col-4" alt="user"/>
+                <img src="src\images\Omino_blu.png" className="col-4" alt="user"/>
                 </div>
             </div>
 
           <div className="form-group row">
-            <label htmlFor="userName" className="col-2 col-form-label">
+            <label htmlFor="userName" className="col-3 col-form-label">
               Username
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputUsernameS == true
@@ -62,10 +62,10 @@ const SignIn = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="psw" className="col-2 col-form-label">
+            <label htmlFor="psw" className="col-3 col-form-label">
               Password
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputPswS == true
@@ -90,8 +90,8 @@ const SignIn = () => {
             </div>
           </div>
 
-          <div className="col-10 buttons">
-            <button onClick={submitSHandler} className="btn btn-info mt-4">
+          <div className="col-12 buttons">
+            <button onClick={submitSHandler} className="btn mybutton mt-4">
               Sign In
             </button>
           </div>

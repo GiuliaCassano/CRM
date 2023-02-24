@@ -2,7 +2,7 @@ import { SignUp } from "../components/SignUp"
 
 const SignUpPage = () => {
     return (
-        <div>
+        <div className = "backgroundHome">
              <SignUp></SignUp> 
         </div>
     )

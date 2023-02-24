@@ -91,16 +91,17 @@ const SignUp = () => {
   console.log(pswValue);
 
   return (
-    <div className="container">
+    <div className="container background base">
       <div className=" row justify-content-around">
-        <form onSubmit={submitHandler} className="col-8 ">
+      <h3 className="col-12 pt-3 text-center col-12 col--sm-8 col-md-6">Sign UP!</h3>
+        <form onSubmit={submitHandler} className="col-10 pt-3">
         
           <div className="form-group row">
-            <label htmlFor="firstNameLogin" className="col-2 col-form-label">
+            <label htmlFor="firstNameLogin" className="col-3 col-form-label">
               First name
             </label>
 
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputName == true
@@ -117,10 +118,10 @@ const SignUp = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="lastNameLogin" className="col-2 col-form-label">
+            <label htmlFor="lastNameLogin" className="col-3 col-form-label">
               Last name
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputName == true
@@ -137,10 +138,10 @@ const SignUp = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="userName" className="col-2 col-form-label">
+            <label htmlFor="userName" className="col-3 col-form-label">
               Username
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputName == true
@@ -157,19 +158,19 @@ const SignUp = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="birthdate" className="col-2 col-form-label">
+            <label htmlFor="birthdate" className="col-3 col-form-label">
               Birthdate
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input type="date" id="birthdate" className="form-control" />
             </div>
           </div>
 
           <div className="form-group row">
-            <label htmlFor="emailLogin" className="col-2 col-form-label">
+            <label htmlFor="emailLogin" className="col-3 col-form-label">
               Email
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputName == true
@@ -186,10 +187,10 @@ const SignUp = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="country" className="col-2 col-form-label">
+            <label htmlFor="country" className="col-3 col-form-label">
               Country
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <select
                 type="dropdown"
                 id="country"
@@ -410,10 +411,10 @@ const SignUp = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="psw" className="col-2 col-form-label">
+            <label htmlFor="psw" className="col-3 col-form-label">
               Password
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputName == true
@@ -430,10 +431,10 @@ const SignUp = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="pswConfirm" className="col-2 col-form-label">
+            <label htmlFor="pswConfirm" className="col-3 col-form-label">
               Password confirmation
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputName == true
@@ -449,8 +450,8 @@ const SignUp = () => {
             </div>
           </div>
 
-          <div className="col-10 buttons">
-            <button className="btn btn-info mt-4">Login</button>
+          <div className="col-12 buttons">
+            <button className="btn mybutton mb-5 mt-4">Login</button>
           </div>
         </form>
       </div>

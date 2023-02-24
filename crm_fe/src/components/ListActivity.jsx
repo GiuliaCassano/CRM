@@ -5,13 +5,13 @@ import { ListItemActivity } from "./ListItemActivity";
 
 const ListActivity = ({ propsContent }) => {
   return (
-    <table className="table">
+    <table className="table ">
       <thead>
-        <tr>
-          <th scope="col">Activity Type</th>
-          <th scope="col">Date and Time</th>
-          <th scope="col">Description</th>
-          <th scope="col">Manager</th>
+        <tr >
+          <th className = "pb-3" scope="col">Activity Type</th>
+          <th className = "pb-3" scope="col">Date and Time</th>
+          <th className = "pb-3" scope="col">Description</th>
+          <th className = "pb-3" scope="col">Manager</th>
         </tr>
       </thead>
       <tbody>

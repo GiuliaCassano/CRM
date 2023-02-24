@@ -1,3 +1,36 @@
+ @import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+
+
+*{
+    font-family: 'Tilt Neon', cursive;
+}
+
+.text-about {
+    font-family: 'Tilt Neon', cursive;
+    line-height: 5vh;
+}
+
+.text-card{
+    font-family: 'Tilt Neon', cursive;
+    line-height: 3vh;
+}
+
 .card{
-    background-color: #ade8f4;
+    background-color: #83c5be;
+}
+
+.background {
+    background-color: #83c5be;
+}
+
+.backgroundHome {
+    background-color : #fcbf49;
+}
+
+.cardbutton {
+    background-color: #83c5be;
+}
+
+.base {
+    min-height: 100vh;
 }

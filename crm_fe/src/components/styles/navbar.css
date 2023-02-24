@@ -7,7 +7,7 @@ main {
 }
 
 .navbar {
-    background: #3a86ff;
+    background: #006d77;
     color: white;
     font-family: Helvetica;
     font-weight: 1000;
@@ -22,9 +22,28 @@ main {
 .mybutton {
     min-width: 100px;
     margin-inline : 10px;
- 
+    background-color: #f3722c;
+    color: #0f0f0f;
+}
+
+.mybutton :hover {
+    color: #f35b04;
+    box-decoration-break: none;
 }
 
 .search {
     height : 2rem;
+}
+
+.aboutValues {
+    min-width: 100px;
+    margin-inline : 10px; 
+}
+ 
+.noline {
+    text-decoration: none;
+    color: #f3722c;
+}
+.noline :hover{
+    color: #f35b04;
 }

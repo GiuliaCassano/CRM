@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 function MyNavbar() {
   return (
     
-    <Navbar bg="light" expand="lg">
+    <Navbar expand="lg">
       <Container fluid>
         <Logo/>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -20,8 +20,12 @@ function MyNavbar() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#action1">About us</Nav.Link>
-            <Nav.Link href="#action2">Our values</Nav.Link>
+            <NavLink className="noline aboutUs__item" to= "/aboutus">
+              <span className ="aboutValues">About Us</span>
+            </NavLink>
+            <NavLink className="noline ourValues__item" to= "/ourvalues">
+              <span className="aboutValues">Our Values</span>
+            </NavLink>
           </Nav>
           
           <Form className="search d-flex" >
@@ -32,10 +36,10 @@ function MyNavbar() {
               aria-label="Search"
             />
             <NavLink className= "navbar__item" to = "/signinpage">
-            <Button className= "mybutton" variant="outline-info">Sign In</Button>
+            <Button className= "mybutton" >Sign In</Button>
             </NavLink>
             <NavLink className="navbar__item" to="/signuppage">
-            <Button className ="mybutton" variant="outline-info">Sign Up</Button>
+            <Button className ="mybutton">Sign Up</Button>
             </NavLink>
           </Form>
           

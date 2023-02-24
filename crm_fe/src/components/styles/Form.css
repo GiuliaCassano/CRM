@@ -1,9 +1,14 @@
 .form-control {
     width: 100%;
+    background-color: #d0f4de;
   }
   
 .buttons{
   display: flex;
   flex-direction: row;
  justify-content:space-evenly;
+}
+
+.row{
+  margin: 1rem;
 }

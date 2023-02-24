@@ -59,14 +59,7 @@ const FormActivities = () => {
     } else setCheckInputActivity(false);
   };
 
-  //DATETIME
   
-//   const provaPerGiulia = "10-03-2023T00:00"
-//     const temp=provaPerGiulia.split("T");
-//     const giorno = temp[0];
-//     const ora = temp[1];
-//     console.log(giorno + " " + ora);
-// dove provaPerGiulia è il tuo localdatetime
    function datetimeChangeHandler(event) {
     setIsDateTooEarly(false);
     if (!event.target["validity"].valid) return;
@@ -160,14 +153,16 @@ const FormActivities = () => {
   };
   
   return (
-    <div className="container">
+    <div className= "backgroundHome">
+    <div className="container background">
       <div className="row justify-content-around">
-        <form className="col-8">
+      <h3 className="col-12 pt-3 text-center col-12 col--sm-8 col-md-6">Add your activity</h3>
+        <form className="col-10 pt-3">
           <div className="form-group row">
-            <label htmlFor="activityType" className="col-2 col-form-label">
+            <label htmlFor="activityType" className="col-3 col-form-label">
               Activity Type
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputActivity == true
@@ -183,10 +178,10 @@ const FormActivities = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="booking" className="col-2 col-form-label">
+            <label htmlFor="booking" className="col-3 col-form-label">
               Day and Time
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className="form-control"
                 type="datetime-local"
@@ -203,10 +198,10 @@ const FormActivities = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="manager" className="col-2 col-form-label">
+            <label htmlFor="manager" className="col-3 col-form-label">
               Manager
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <input
                 className={`${
                   checkInputManager == true
@@ -223,10 +218,10 @@ const FormActivities = () => {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="description" className="col-2 col-form-label">
+            <label htmlFor="description" className="col-3 col-form-label">
               Description
             </label>
-            <div className="col-10">
+            <div className="col-9">
               <textarea
                 className={`${
                   checkInputDescription == true
@@ -243,10 +238,10 @@ const FormActivities = () => {
             </div>
           </div>
 
-          <div className="col-12 buttons">
+          <div className="col-12 buttons mb-3 ">
             <button
               onClick={submitHandler}
-              className="btn btn-success mt-4 "
+              className="btn mybutton mt-4"
             >
               Add
             </button>
@@ -255,6 +250,7 @@ const FormActivities = () => {
 
         <div className="form-group row">{final}</div>
       </div>
+    </div>
     </div>
   );
 };

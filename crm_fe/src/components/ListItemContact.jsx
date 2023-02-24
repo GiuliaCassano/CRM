@@ -1,4 +1,7 @@
-const ListItemContact = ({ propsContent, deleteControlHandler }) => {
+import { useNavigate } from "react-router-dom";
+
+const ListItemContact = ({ propsContent, deleteControlHandler, updateControlHandler, newContactToBE }) => {
+ const navigate = useNavigate();
   return (
     <>
       <tr>
@@ -11,6 +14,13 @@ const ListItemContact = ({ propsContent, deleteControlHandler }) => {
           <button
             className="btn btn-danger"
             onClick = {() => deleteControlHandler(propsContent.id)}>Delete
+          </button>
+        </td>
+
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick = {() => navigate("/updatecontact")}>Update
           </button>
         </td>
       </tr>
