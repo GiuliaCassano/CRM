@@ -1,0 +1,24 @@
+.ticketName {
+    background-color: #83c5be;
+}
+
+.ticket {
+    background-color: #f35b04;
+    
+}
+.ticketActivity {
+    background-color: #fcbf49;
+ }
+
+.text-activity {
+    font-family: 'Tilt Neon', cursive;
+    font-weight: 700;
+    font-size: large;
+}
+.base{
+    min-height: 100vh;
+}
+
+.ticket-title{
+    text-align: center;
+}

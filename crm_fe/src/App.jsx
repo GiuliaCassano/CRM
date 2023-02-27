@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import'bootstrap/dist/css/bootstrap.min.css';
 import MyNavbar from "./components/MyNavbar";
-import OurValues from "./pages/OurValues";
+import OurValues from "./pages/TicketsPage";
 import AboutUs from "./pages/AboutUs";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import HomePage from "./pages/HomePage";
+import TicketsPage from "./pages/TicketsPage";
 import { FormActivities } from "./components/FormActivities";
 import { FormContacts } from "./components/FormContacts";
 
@@ -16,7 +17,7 @@ function App() {
       <MyNavbar/>
       {/* CREO LE MIE ROTTE */}
       <Routes>
-        <Route path="/ourValues" element={<OurValues/>}></Route>
+        <Route path= "/ticket" element = {<TicketsPage/>}/>
         <Route path ="/aboutus" element={<AboutUs/>}></Route>
         <Route path="/signuppage" element={<SignUpPage />}></Route> 
         <Route path="/signinpage" element={<SignInPage />}></Route> 

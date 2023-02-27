@@ -98,14 +98,23 @@ const FormContacts = () => {
   console.log(newContactToBE);
 
   //~~~ 3 ~~~ UPDATE FETCH
-  const onUpdateControlHandler = async (idToBeUpdated, contactUpdated) => {
+  const onUpdateControlHandler = async (idToBeUpdated) => {
+    if (
+      checkInputName == false ||
+      checkInputSurname == false ||
+      checkInputEmail == false ||
+      checkInputPhone == false
+    ) {
+      console.log("Something went wrong");
+      return;
+    }
     fetch(`http://localhost:8080/contact/update?id=${idToBeUpdated}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
         "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify(contactUpdated),
+      body: JSON.stringify(newContactToBE),
     })
       .then((response) => {
         fetchGetAllContacts();
@@ -529,14 +538,7 @@ const FormContacts = () => {
                 Add
               </button>
 
-              <button
-                className="btn btn-danger"
-                onClick={() =>
-                  onUpdateControlHandler(propsContent.id, newContactToBE)
-                }
-              >
-                Update
-              </button>
+             
             </div>
           </form>
           <div className="form-group row">{final}</div>

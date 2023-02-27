@@ -33,6 +33,7 @@ const FormActivities = () => {
       const dataMapped = await data.map((elem, index) => {
         //.map è funzione che scorre gli oggetti dell'array e ritorna un array di oggetti modificato in base alla funzione
         return {
+          id: elem.id,
           activityType: elem.activityType,
           contacts: elem.contacts,
           dateTime: elem.dateTime,
@@ -49,6 +50,28 @@ const FormActivities = () => {
       console.log(error);
     }
     setIsLoading(false);
+  };
+
+  //INIZIO LA FETCH --> DELETE
+
+  const onDeleteControlHandler = (idToBeDeleted) => {
+    fetch(`http://localhost:8080/activity/delete?id=${idToBeDeleted}`, {
+      method: "DELETE",
+
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((response) => {
+        fetchGetAllActivities();
+        console.log("*****");
+        console.log(idToBeDeleted);
+      })
+
+      .catch((error) => {
+        setError(error.message);
+        console.log(error);
+      });
   };
 
   //ACTIVITY
@@ -74,8 +97,6 @@ const FormActivities = () => {
     }
   }
   
-  
-
 
   //MANAGER
   const managerChangeHandler = (event) => {
@@ -111,9 +132,11 @@ const FormActivities = () => {
     final = <div>Something went wrong, try again!</div>;
   }
 
+  //PRINCIPALE
   if (content != null) {
     //Se il content è stato riempito ritorna la funzione che specifichiamo sotto
-    final = <ListActivity propsContent={content} />; // finale è uguale a ListActivity che ha come proprietà il content
+    final = <ListActivity propsContent={content}
+    deleteControlHandler= {onDeleteControlHandler} />; // finale è uguale a ListActivity che ha come proprietà il content
     console.log("Funziona fetch");
   }
 
@@ -151,6 +174,7 @@ const FormActivities = () => {
         console.log(error);
       });
   };
+  
   
   return (
     <div className= "backgroundHome">

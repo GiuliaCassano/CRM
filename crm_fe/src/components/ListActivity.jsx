@@ -3,7 +3,7 @@
 
 import { ListItemActivity } from "./ListItemActivity";
 
-const ListActivity = ({ propsContent }) => {
+const ListActivity = ({ propsContent, deleteControlHandler }) => {
   return (
     <table className="table ">
       <thead>
@@ -16,7 +16,11 @@ const ListActivity = ({ propsContent }) => {
       </thead>
       <tbody>
         {propsContent.map((elem, index) => {
-          return <ListItemActivity key={index} propsContent={elem} />;
+          return <ListItemActivity
+          key={index} 
+          propsContent={elem}
+          deleteControlHandler={deleteControlHandler}
+          />;
         })}
       </tbody>
     </table>

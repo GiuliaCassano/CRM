@@ -9,8 +9,8 @@ const HomePage = () => {
 
       <div className="container ">
         <div className="row justify-content-around">
-          <CardActivities/>
           <CardContact />
+          <CardActivities />
         </div>
       </div>
     </div>

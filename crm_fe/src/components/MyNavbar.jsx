@@ -23,9 +23,9 @@ function MyNavbar() {
             <NavLink className="noline aboutUs__item" to= "/aboutus">
               <span className ="aboutValues">About Us</span>
             </NavLink>
-            <NavLink className="noline ourValues__item" to= "/ourvalues">
-              <span className="aboutValues">Our Values</span>
-            </NavLink>
+            {/* <NavLink className="noline ourValues__item" to= "/ticket">
+              <span className="aboutValues">Tickets</span>
+            </NavLink> */}
           </Nav>
           
           <Form className="search d-flex" >
