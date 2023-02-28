@@ -5,7 +5,7 @@ NavLink;
 function Logo(){
     return(
         <NavLink to="/" className="img-fluid" >
-            <img src="src\images\Logo.png" className="img-fluid"  />
+            <img src="src\images\LogoC.png" className="img-fluid"  />
         </NavLink>
     )
 }
