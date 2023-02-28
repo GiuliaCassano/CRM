@@ -8,7 +8,7 @@ const ListItemActivity = ({ propsContent, deleteControlHandler }) => {
     <tr>
       <td>{propsContent.activityType}</td>
       <td>
-        {new Date(propsContent.dateTime).toLocaleDateString()},
+        {new Date(propsContent.dateTime).toLocaleDateString()}, 
         {new Date(propsContent.dateTime).toLocaleTimeString()}
       </td>
       <td>{propsContent.description}</td>

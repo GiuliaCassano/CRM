@@ -28,9 +28,19 @@ const Ticket = () => {
     console.log(final);
     final2 = final.contacts.map((elem, index) => {
       return (
-        <div>
-          {elem.firstName} {elem.lastName}
-        </div>
+        
+          <div className="row ticket">
+          <div className="col-3 ticketName">
+            {elem.firstName} {elem.lastName}
+          </div>
+          <div className="col-3"> {final.activityType}</div>
+          <div className="col-3"> {final.manager}</div>
+          <div className="col-3">
+            {new Date(final.dateTime).toLocaleDateString()} 
+            {new Date(final.dateTime).toLocaleTimeString()}
+          </div>
+          </div>
+      
       );
     });
     console.log(final2);
@@ -45,27 +55,10 @@ const Ticket = () => {
     <div className="backgroundHome base">
       <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
-      <h2 className="animated swing ticket-title mt-3 pt-2">Ticket resume</h2>
-      <div className="container background ">
-        <div className="row  align-items-center ticket">
-          <div className="col-sm-2 ticketName">{final2}</div>
-          <div className="col-sm-10">
-            <div className="row ticketActivity p-5 border border-0 rounded">
-              <div className="col-8 col-sm-4 text-activity">
-                {final.activityType}
-              </div>
-              <div className="col-4 col-sm-4 text-activity">
-                With : {final.manager}{" "}
-              </div>
-              <div className="col-4 col-sm-4 text-activity">
-                {new Date(final.dateTime).toLocaleDateString()} -
-                {new Date(final.dateTime).toLocaleTimeString()}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+      />
+      <h2 className="animated swing ticket-title mt-3 pt-2">Ticket recap</h2>
+      <div className="container background py-2 ">{final2}</div>
     </div>
   );
 };
